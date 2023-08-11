@@ -21,7 +21,7 @@ class CreditService(
     }
 
     override fun findAllByCustomer(customerId: Long): List<Credit> {
-        TODO("Not yet implemented")
+        return this.creditRepository.findAllByCustomerId(customerId)
     }
 
     override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
