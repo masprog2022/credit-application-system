@@ -1,6 +1,7 @@
 package com.masprogtechs.credit.application.system.controllers
 
 import com.masprogtechs.credit.application.system.dto.CustomerDto
+import com.masprogtechs.credit.application.system.dto.CustomerUpdateDto
 import com.masprogtechs.credit.application.system.dto.CustomerView
 import com.masprogtechs.credit.application.system.entities.Customer
 import com.masprogtechs.credit.application.system.services.impl.CustomerService
@@ -26,4 +27,14 @@ class CustomerResource(
 
     @DeleteMapping("/{id}")
     fun deleteCustomer(@PathVariable id: Long) = this.customerService.delete(id)
+
+    @PatchMapping
+    fun updateCustomer(@RequestParam(value = "customerId") id: Long,
+                       customerUpdateDto: CustomerUpdateDto
+    ): CustomerView {
+        val customer: Customer = this.customerService.findById(id)
+        val customerToUpdate = customerUpdateDto.toEntity(customer)
+        val customerUpdated: Customer = this.customerService.save(customerToUpdate)
+        return CustomerView(customerUpdated)
+    }
 }
