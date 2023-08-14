@@ -25,7 +25,6 @@ data class CustomerDto (
         address = Address(
             zipCode = this.zipCode,
             street = this.street
-
         )
 
 
