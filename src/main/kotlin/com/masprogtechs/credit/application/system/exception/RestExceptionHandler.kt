@@ -52,4 +52,44 @@ class RestExceptionHandler {
             ), HttpStatus.CONFLICT
         )*/
     }
+
+    @ExceptionHandler(BusinessException::class)
+    fun handleValidException(ex: BusinessException): ResponseEntity<ExceptionDetails>{
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionDetails(
+            title = "Bad Request! Consult the documentation",
+            timestamp = LocalDateTime.now(),
+            status = HttpStatus.BAD_REQUEST.value(),
+            exception = ex.javaClass.toString(),
+            details = mutableMapOf(ex.cause.toString() to ex.message)
+        ))
+        /* return ResponseEntity(
+             ExceptionDetails(
+                 title = "Bad Request! Consult the documentation",
+                 timestamp = LocalDateTime.now(),
+                 status = HttpStatus.BAD_REQUEST.value(),
+                 exception = ex.javaClass.toString(),
+                 details = mutableMapOf(ex.cause.toString() to ex.message)
+             ), HttpStatus.CONFLICT
+         )*/
+    }
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleValidException(ex: IllegalArgumentException): ResponseEntity<ExceptionDetails>{
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionDetails(
+            title = "Bad Request! Consult the documentation",
+            timestamp = LocalDateTime.now(),
+            status = HttpStatus.BAD_REQUEST.value(),
+            exception = ex.javaClass.toString(),
+            details = mutableMapOf(ex.cause.toString() to ex.message)
+        ))
+        /* return ResponseEntity(
+             ExceptionDetails(
+                 title = "Bad Request! Consult the documentation",
+                 timestamp = LocalDateTime.now(),
+                 status = HttpStatus.BAD_REQUEST.value(),
+                 exception = ex.javaClass.toString(),
+                 details = mutableMapOf(ex.cause.toString() to ex.message)
+             ), HttpStatus.CONFLICT
+         )*/
+    }
 }
