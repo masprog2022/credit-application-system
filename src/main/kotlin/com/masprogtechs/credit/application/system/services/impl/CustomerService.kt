@@ -1,6 +1,7 @@
 package com.masprogtechs.credit.application.system.services.impl
 
 import com.masprogtechs.credit.application.system.entities.Customer
+import com.masprogtechs.credit.application.system.exception.BusinessException
 import com.masprogtechs.credit.application.system.repositories.CustomerRepository
 import com.masprogtechs.credit.application.system.services.ICustomerService
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,11 +18,14 @@ class CustomerService (
 
     override fun findById(id: Long): Customer {
        return this.customerRepository.findById(id).orElseThrow{
-           throw RuntimeException("Id $id not found!")
+           throw BusinessException("Id $id not found!")
        }
     }
 
     override fun delete(id: Long) {
-        this.customerRepository.deleteById(id)
+      val customer: Customer = this.findById(id)
+        this.customerRepository.delete(customer)
     }
+
+    // this.customerRepository.deleteById(id)
 }
